@@ -29,3 +29,23 @@ bdist: release clean
 wheel: release clean
 	$(info -> Makefile: building the wheel distribution package ...)
 	@(cd src; python3 setup.py bdist_wheel)
+
+push-test:
+ifndef TWINE_USERNAME
+	$(error Makefile: TWINE_USERNAME is not set - please set it or you won't be able to  authenticate to the PyPI server)
+endif
+ifndef TWINE_PASSWORD
+	$(error Makefile: TWINE_PASSWORD is not set - please set it or you won't be able to  authenticate to the PyPI server)
+endif
+	$(info -> Makefile: pushing to Test PyPI...)
+	@(cd src; twine upload --repository-url https://test.pypi.org/legacy/ dist/*)
+
+push:
+ifndef TWINE_USERNAME
+	$(error Makefile: TWINE_USERNAME is not set - please set it or you won't be able to  authenticate to the PyPI server)
+endif
+ifndef TWINE_PASSWORD
+	$(error Makefile: TWINE_PASSWORD is not set - please set it or you won't be able to  authenticate to the PyPI server)
+endif
+	$(info -> Makefile: pushing to PyPI ...)
+	@(cd src; twine upload dist/*)
