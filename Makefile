@@ -25,3 +25,7 @@ sdist: release clean
 bdist: release clean
 	$(info -> Makefile: building the bdist distribution package ...)
 	@(cd src; python3 setup.py bdist)
+
+wheel: release clean
+	$(info -> Makefile: building the wheel distribution package ...)
+	@(cd src; python3 setup.py bdist_wheel)
