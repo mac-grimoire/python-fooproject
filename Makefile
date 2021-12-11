@@ -21,3 +21,7 @@ unittests:
 sdist: release clean
 	$(info -> Makefile: building the sdist distribution package ...)
 	@(cd src; python3 setup.py sdist)
+
+bdist: release clean
+	$(info -> Makefile: building the bdist distribution package ...)
+	@(cd src; python3 setup.py bdist)
