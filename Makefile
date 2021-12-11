@@ -58,3 +58,7 @@ rpm: sdist
 	mv src/dist/carcano_foolist-${RELEASE}.tar.gz ~/rpmbuild/SOURCES
 	cp RPM/SPECS/carcano_foolist.spec ~/rpmbuild/SPECS
 	cd ~/rpmbuild/SPECS; rpmbuild --define "_version ${RELEASE}" -ba carcano_foolist.spec
+
+sign:
+	$(info -> Makefile: digitally signing the RPM packages...)
+	rpm --addsign ~/rpmbuild/RPMS/noarch/python3-carcano_foolist*.rpm
