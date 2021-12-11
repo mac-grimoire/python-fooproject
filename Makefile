@@ -49,3 +49,12 @@ ifndef TWINE_PASSWORD
 endif
 	$(info -> Makefile: pushing to PyPI ...)
 	@(cd src; twine upload dist/*)
+
+rpm: sdist
+	$(info -> Makefile: packaging as RPM ...)
+	[ -d ~/rpmbuild ] || mkdir ~/rpmbuild
+	[ -d ~/rpmbuild/SOURCES ] || mkdir ~/rpmbuild/SOURCES
+	[ -d ~/rpmbuild/SPECS ] || mkdir ~/rpmbuild/SPECS
+	mv src/dist/carcano_foolist-${RELEASE}.tar.gz ~/rpmbuild/SOURCES
+	cp RPM/SPECS/carcano_foolist.spec ~/rpmbuild/SPECS
+	cd ~/rpmbuild/SPECS; rpmbuild --define "_version ${RELEASE}" -ba carcano_foolist.spec
